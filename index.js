@@ -1,9 +1,20 @@
 const express = require("express");
-const router = require("./routes/index");
 const port = 8000;
 const app = express();
+const mongoose = require("./config/mongoose");
+const expressLayouts = require("express-ejs-layouts");
 
-app.get("/", router);
+app.use(express.static("./assets"));
+
+app.use(expressLayouts);
+app.set("layout extractStyles", true);
+app.set("layout extractScripts", true);
+
+app.use("/", require("./routes"));
+
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
 app.listen(port, function (err) {
   if (err) {
     console.log("Error", err);
