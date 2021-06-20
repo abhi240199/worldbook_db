@@ -10,3 +10,18 @@
         </form>
     </div>
     <%}%>
+        <div id='post-list-container'>
+            <ul>
+                <%for(post of postList){%>
+                    <li>
+                        <p>
+                            <b>
+                                <%=post.user.name%>
+                            </b>
+                            <br>
+                            <%=post.content%>
+                        </p>
+                    </li>
+                    <% }%>
+            </ul>
+        </div>

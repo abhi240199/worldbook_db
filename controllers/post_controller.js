@@ -12,7 +12,7 @@ module.exports.createPost = function (req, res) {
       }
       if (post) {
         console.log("Post has been created", post);
-        return res.redirect("/user/profile");
+        return res.redirect("/");
       }
     }
   );
