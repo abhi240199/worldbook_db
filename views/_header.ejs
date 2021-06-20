@@ -4,9 +4,23 @@
         <div>Worldbook</div>
 
     </div>
-    <div>Worldbook</div>
-    <div>
-        <div>Abhishek Patel</div>
-        <div>Logout</div>
-    </div>
+    <%if(locals.user){%>
+        <div><a href='/'>Home</a></div>
+        <div><a href='/user/profile'>Profile</a></div>
+
+        <% }%>
+            <div>
+                <%if(locals.user){%>
+                    <div>
+                        <%=user.name%>
+                    </div>
+                    <div><a href='/user/sign-out'>Logout</a></div>
+
+                    <% }else{%>
+                        <div><a href='/user/sign-in'>Sign In</a></div>
+                        <div><a href='/user/sign-up'>Sign Up</a></div>
+
+                        <%}%>
+
+            </div>
 </div>
