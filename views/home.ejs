@@ -1,9 +1,12 @@
 <link rel="stylesheet" href="/css/home.css">
 
-<h1>Create Post</h1>
-<div id="post-blog">
-    <form action="/post/create-post" method="POST">
-        <textarea name='post' placeholder="Write a Post"></textarea>
-        <button type="submit">Post</button>
-    </form>
-</div>
+
+<%if(locals.user){%>
+    <h1>Create Post</h1>
+    <div id="post-blog">
+        <form action="/post/create-post" method="POST">
+            <textarea name='content' cols="40" rows="3" placeholder="Write a Post"></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+    <%}%>
