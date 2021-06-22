@@ -1,13 +1,17 @@
 //render the sign up page
 const { render } = require("ejs");
 const User = require("../models/user");
-module.exports.profile = function (req, res) {
-  User.findById(req.params.id, function (err, user) {
+module.exports.profile = async function (req, res) {
+  try {
+    const user = await User.findById(req.params.id);
     return res.render("profile", {
       title: "Worldbook|Profile",
       main_user: user,
     });
-  });
+  } catch (err) {
+    console.log("Error", err);
+    return;
+  }
 };
 
 module.exports.updateProfile = function (req, res) {
@@ -43,6 +47,8 @@ module.exports.signUp = function (req, res) {
 //Sign Out user
 module.exports.signOut = function (req, res) {
   req.logout();
+  req.flash("success", "Logged out Successfully");
+
   return res.render("sign_in", {
     title: "Worldbook|Sign In",
   });
@@ -75,5 +81,6 @@ module.exports.create = function (req, res) {
 
 //Creating a seesion for Sign in User
 module.exports.createSession = function (req, res) {
+  req.flash("success", "Logged in Successfully");
   return res.redirect("/");
 };

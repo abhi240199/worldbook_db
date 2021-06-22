@@ -1,30 +1,26 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
 
-module.exports.createComment = function (req, res) {
-  Post.findById(req.body.post, function (err, post) {
+module.exports.createComment = async function (req, res) {
+  try {
+    const post = await Post.findById(req.body.post);
     if (post) {
-      Comment.create(
-        {
-          content: req.body.content,
-          user: req.user._id,
-          post: req.body.post,
-        },
-        function (err, comment) {
-          if (err) {
-            console.log("Error in creating Comment");
-            return res.redirect("/");
-          }
-          if (comment) {
-            console.log("Comment has been created", comment);
-            post.comments.push(comment);
-            post.save();
-            return res.redirect("/");
-          }
-        }
-      );
+      const comment = await Comment.create({
+        content: req.body.content,
+        user: req.user._id,
+        post: req.body.post,
+      });
+      if (comment) {
+        req.flash("success", "Comment has been created.");
+        post.comments.push(comment);
+        post.save();
+        return res.redirect("/");
+      }
     }
-  });
+  } catch (err) {
+    req.flash("error", "You cannot comment.");
+    return res.redirect("/");
+  }
 };
 module.exports.deleteComment = function (req, res) {
   Comment.findById(req.params.id, function (err, comment) {
@@ -35,6 +31,7 @@ module.exports.deleteComment = function (req, res) {
     if (comment.user == req.user.id) {
       let postId = comment.post;
       comment.remove();
+      req.flash("success", "Comment deleted....");
       Post.findByIdAndUpdate(
         postId,
         { $pull: { comments: req.params.id } },

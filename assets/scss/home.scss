@@ -1,3 +1,17 @@
-body {
+#home-page {
+  margin: 2%;
   height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#post-section {
+  height: auto;
+  width: 60%;
+}
+#friend-section {
+  padding-left: 2%;
+  height: auto;
+  width: 20%;
+  border-left: 1px solid black;
 }

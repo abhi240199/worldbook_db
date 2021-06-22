@@ -5,7 +5,8 @@ const db = require("./config/mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const User = require("./models/user");
 const Post = require("./models/post");
-
+const flash = require("connect-flash");
+const customMware = require("./config/middleware");
 var sassMiddleware = require("node-sass-middleware");
 const cookieParser = require("cookie-parser");
 //used for session cookie for passport
@@ -27,6 +28,7 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.urlencoded());
+
 app.use(express.static("./assets"));
 
 app.use(expressLayouts);
@@ -55,6 +57,8 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(customMware.setFlash);
 app.use(passport.setAuthenticatedUser);
 
 app.use("/", require("./routes"));

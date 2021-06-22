@@ -9,29 +9,30 @@ module.exports.createPost = function (req, res) {
     },
     function (err, post) {
       if (err) {
-        console.log("Error in creating Post");
+        req.flash("error", "Error in creating Post");
         return res.redirect("/");
       }
       if (post) {
-        console.log("Post has been created", post);
+        req.flash("success", "Congrats!Post Published..");
         return res.redirect("/");
       }
     }
   );
 };
-module.exports.deletePost = function (req, res) {
-  Post.findById(req.params.id, function (err, post) {
-    if (err) {
-      console.log("Error in finding a Post");
-      return;
-    }
+module.exports.deletePost = async function (req, res) {
+  try {
+    const post = await Post.findById(req.params.id);
     if (post.user == req.user.id) {
       post.remove();
-      Comment.deleteMany({ post: req.params.id }, function (err) {
-        return res.redirect("back");
-      });
+
+      await Comment.deleteMany({ post: req.params.id });
+      req.flash("success", "Post deleted....");
+      return res.redirect("back");
     } else {
       return res.redirect("back");
     }
-  });
+  } catch (err) {
+    req.flash("error", "Post can not be deleted");
+    return res.redirect("back");
+  }
 };

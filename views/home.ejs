@@ -1,22 +1,27 @@
 <link rel="stylesheet" href="/css/home.css">
 
+<div id="home-page">
 
-<%if(locals.user){%>
-    <h1>Create Post</h1>
-    <div id="post-blog">
-        <form action="/post/create-post" method="POST">
-            <textarea name='content' cols="50" rows="4" placeholder="Write a Post.........." required></textarea>
-            <button type="submit">Add Post</button>
-        </form>
+    <div id="post-section">
+        <%if(locals.user){%>
+            <h1>Create Post</h1>
+            <div id="post-blog">
+                <form action="/post/create-post" method="POST">
+                    <textarea name='content' cols="50" rows="4" placeholder="Write a Post.........."
+                        required></textarea>
+                    <button type="submit">Add Post</button>
+                </form>
+            </div>
+            <%}%>
+                <div id='post-list-container'>
+                    <ul>
+                        <%for(post of postList){%>
+                            <%-include('_post.ejs')-%>
+                                <% }%>
+                    </ul>
+                </div>
     </div>
-    <%}%>
-        <div id='post-list-container'>
-            <ul>
-                <%for(post of postList){%>
-                    <%-include('_post.ejs')-%>
-                        <% }%>
-            </ul>
-        </div>
+    <div id="friend-section">
         <aside>
             <h2>Friends list</h2>
             <ul>
@@ -29,3 +34,5 @@
                     <% }%>
             </ul>
         </aside>
+    </div>
+</div>
