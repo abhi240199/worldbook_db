@@ -6,7 +6,7 @@
     </div>
     <%if(locals.user){%>
         <div><a href='/'>Home</a></div>
-        <div><a href='/user/profile'>Profile</a></div>
+        <div><a href='/user/profile/<%=locals.user.id%>'>Profile</a></div>
 
         <% }%>
             <div>

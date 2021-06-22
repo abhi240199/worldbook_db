@@ -2,9 +2,22 @@
 const { render } = require("ejs");
 const User = require("../models/user");
 module.exports.profile = function (req, res) {
-  return res.render("profile", {
-    title: "Worldbook|Profile",
+  User.findById(req.params.id, function (err, user) {
+    return res.render("profile", {
+      title: "Worldbook|Profile",
+      main_user: user,
+    });
   });
+};
+
+module.exports.updateProfile = function (req, res) {
+  if (req.user.id == req.params.id) {
+    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+      return res.redirect("back");
+    });
+  } else {
+    return res.status(401).send("Unauthorized");
+  }
 };
 
 //render the sign in page
@@ -16,6 +29,7 @@ module.exports.signIn = function (req, res) {
     title: "Worldbook|Sign In",
   });
 };
+
 //render the sign up page
 module.exports.signUp = function (req, res) {
   if (req.isAuthenticated()) {
@@ -33,8 +47,8 @@ module.exports.signOut = function (req, res) {
     title: "Worldbook|Sign In",
   });
 };
-//Creating  Sign up User
 
+//Creating  Sign up User
 module.exports.create = function (req, res) {
   if (req.body.password != req.body.confirm_password) {
     return res.redirect("back");
@@ -58,6 +72,7 @@ module.exports.create = function (req, res) {
     }
   });
 };
+
 //Creating a seesion for Sign in User
 module.exports.createSession = function (req, res) {
   return res.redirect("/");
