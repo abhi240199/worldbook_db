@@ -7,4 +7,5 @@ router.post(
   passport.checkAuthentication,
   postController.createPost
 );
+router.get("/delete-post/:id", postController.deletePost);
 module.exports = router;

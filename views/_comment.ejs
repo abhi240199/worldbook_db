@@ -1,0 +1,15 @@
+<li>
+    <p>
+        <b>
+            <%=comment.user.name%>
+        </b>
+        <br>
+        <%=comment.content%>
+            <br>
+            <% if(locals.user && comment.user.id==locals.user.id){%>
+                <a href="/comment/delete-comment/<%=comment.id%>"><button type="submit">Delete
+                        Comment</button></a>
+                <% }%>
+    </p>
+
+</li>
