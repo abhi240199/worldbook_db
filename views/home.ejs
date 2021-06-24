@@ -6,7 +6,7 @@
         <%if(locals.user){%>
             <h1>Create Post</h1>
             <div id="post-blog">
-                <form action="/post/create-post" method="POST">
+                <form action="/post/create-post" id="new-post-form" method="POST">
                     <textarea name='content' cols="50" rows="4" placeholder="Write a Post.........."
                         required></textarea>
                     <button type="submit">Add Post</button>
@@ -36,3 +36,4 @@
         </aside>
     </div>
 </div>
+<script src="/js/home_post.js"></script>
