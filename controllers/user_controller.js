@@ -1,4 +1,6 @@
 //render the sign up page
+const fs = require("fs");
+const path = require("path");
 const { render } = require("ejs");
 const User = require("../models/user");
 module.exports.profile = async function (req, res) {
@@ -14,13 +16,34 @@ module.exports.profile = async function (req, res) {
   }
 };
 
-module.exports.updateProfile = function (req, res) {
+module.exports.updateProfile = async function (req, res) {
   if (req.user.id == req.params.id) {
-    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+    try {
+      let user = await User.findById(req.params.id);
+      User.uplaodedAvatar(req, res, function (err) {
+        if (err) {
+          console.log("Multer error:", err);
+          // return res.redirect("back");
+        }
+        user.name = req.body.name;
+        user.email = req.body.email;
+        if (req.file) {
+          if (user.avatar) {
+            fs.unlinkSync(path.join(__dirname, "..", user.avatar));
+          }
+          user.avatar = User.avatarPath + "/" + req.file.filename;
+        }
+        console.log("Req,file:", req.file);
+        user.save();
+        return res.redirect("back");
+      });
+    } catch (error) {
+      console.log("Something error:", err);
       return res.redirect("back");
-    });
+    }
   } else {
-    return res.status(401).send("Unauthorized");
+    console.log("Something error:", err);
+    return res.redirect("back");
   }
 };
 
