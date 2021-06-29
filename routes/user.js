@@ -11,6 +11,15 @@ router.get(
 router.get("/sign-in", userController.signIn);
 router.get("/sign-up", userController.signUp);
 router.get("/sign-out", userController.signOut);
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/user/sign-in" }),
+  userController.createSession
+);
 
 router.post("/create", userController.create);
 router.post(

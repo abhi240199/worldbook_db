@@ -5,17 +5,26 @@ const { render } = require("ejs");
 const User = require("../models/user");
 module.exports.profile = async function (req, res) {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
+      .sort("-createdAt")
+      .populate("user_posts")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+        },
+      });
+
     return res.render("profile", {
       title: "Worldbook|Profile",
       main_user: user,
+      postList: user.user_posts,
     });
   } catch (err) {
     console.log("Error", err);
     return;
   }
 };
-
 module.exports.updateProfile = async function (req, res) {
   if (req.user.id == req.params.id) {
     try {

@@ -1,0 +1,14 @@
+<div id="friend-section">
+    <aside>
+        <h2>Friends list</h2>
+        <ul>
+            <%for(i of userList){%>
+                <li>
+                    <a href="/user/profile/<%=i.id%>">
+                        <%=i.name%>
+                    </a>
+                </li>
+                <% }%>
+        </ul>
+    </aside>
+</div>

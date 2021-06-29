@@ -1,0 +1,29 @@
+body {
+  text-align: center;
+}
+#post-action {
+  display: flex;
+  justify-content: space-between;
+}
+#post-section {
+  height: auto;
+  width: 60%;
+  margin-left: 20%;
+}
+@media only screen and (max-width: 600px) {
+  #post-blog {
+    width: 90%;
+    margin-left: 10%;
+  }
+  #post-section {
+    width: 90%;
+    font-size: medium;
+    margin-left: 5%;
+  }
+}
+ul li {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+ul li > div {
+  margin: 1%;
+}

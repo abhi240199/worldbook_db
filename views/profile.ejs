@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/post.css">
 <div id='profile'>
-    <h1>This is my Profile</h1>
+    <br>
     <img src="<%=main_user.avatar%>" alt="<%=main_user.name%>" height="100px" width="100px">
     <br>
     <br>
-
     <b>
         Name: </b>
     <%=main_user.name%>
@@ -19,12 +19,88 @@
                         required><br>
                     <br>
                     <input type="text" name="email" value="<%=main_user.email%>" placeholder="Update Email..."
-                        required><br>
+                        required><br><br>
                     <input type="file" name="avatar" placeholder="Profile Picture..."><br>
                     <br>
                     <button type="submit">Update</button>
                 </form>
                 <%}%>
+</div>
+<div id="post-section">
+    <div><b>Posts</b></div>
 
+    <% if(locals.user && main_user.id==locals.user.id){%>
+        <div id="post-blog">
+            <form action="/post/create-post" id="new-post-form" method="POST">
+                <textarea name='content' cols="50" rows="4" placeholder="Write a Post.........." required></textarea>
+                <button type="submit">Add Post</button>
+            </form>
+        </div>
+        <%}%>
+            <ul>
+                <%for(post of postList){%>
+                    <li id='post-<%=post._id%>'>
+                        <p>
+                        <div>
+                            <b>
+                                <%=main_user.name%>
+                            </b>
+                        </div>
+                        <div>
+                            1 April
+                        </div>
+                        <br>
+                        <div>
+                            <%=post.content%>
+                        </div>
+                        <br>
+                        <div id="post-action">
+                            <% if(locals.user){%>
+                                <div>
+                                    <a href="">Like
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="">Comment
+                                    </a>
+                                </div>
+                                <% }%>
+                                    <br>
 
+                                    <% if(locals.user && main_user.id==locals.user.id){%>
+                                        <div>
+                                            <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
+                                                    Post</button></a>
+                                        </div>
+                                        <% }%>
+                        </div>
+                        </p>
+                        <%if(locals.user){%>
+                            <form action="/comment/create-comment" method="POST">
+                                <textarea name='content' cols="30" rows="2" placeholder="Write a Comment..........."
+                                    required></textarea>
+                                <input type="hidden" name="post" value="<%=post._id%>">
+                                <button type="submit">Comment</button>
+                            </form>
+                            <%}%>
+                                <ol id="post-comment-<%=post._id%>">
+                                    <%for(comment of post.comments){%>
+                                        <li>
+                                            <p>
+
+                                                <br>
+                                                <% if(locals.user && comment.main_user.id==locals.user.id){%>
+                                                    <a href="/comment/delete-comment/<%=comment.id%>"><button
+                                                            type="submit">Delete
+                                                            Comment</button></a>
+                                                    <% }%>
+                                            </p>
+
+                                        </li>
+                                        <% }%>
+                                </ol>
+                                <br>
+                    </li>
+                    <% }%>
+            </ul>
 </div>

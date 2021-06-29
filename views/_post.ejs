@@ -1,15 +1,40 @@
+<link rel="stylesheet" href="/css/post.css">
+
 <li id='post-<%=post._id%>'>
     <p>
+    <div>
         <b>
             <%=post.user.name%>
         </b>
-        <br>
+    </div>
+    <div>
+        1 April
+    </div>
+    <br>
+    <div>
         <%=post.content%>
-            <% if(locals.user && post.user.id==locals.user.id){%>
-                <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
-                        Post</button></a>
-                <% }%>
+    </div>
+    <br>
+    <div id="post-action">
+        <% if(locals.user){%>
+            <div>
+                <a href="/">Like
+                </a>
+            </div>
+            <div>
+                <a href="/">Comment
+                </a>
+            </div>
+            <% }%>
+                <br>
 
+                <% if(locals.user && post.user.id==locals.user.id){%>
+                    <div>
+                        <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
+                                Post</button></a>
+                    </div>
+                    <% }%>
+    </div>
     </p>
     <%if(locals.user){%>
         <form action="/comment/create-comment" method="POST">
@@ -23,4 +48,5 @@
                     <%-include('_comment.ejs')-%>
                         <% }%>
             </ol>
+            <br>
 </li>

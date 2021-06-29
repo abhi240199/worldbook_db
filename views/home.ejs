@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/home.css">
-
+<link rel="stylesheet" href="/css/post.css">
 <div id="home-page">
 
     <div id="post-section">
@@ -21,19 +21,6 @@
                     </ul>
                 </div>
     </div>
-    <div id="friend-section">
-        <aside>
-            <h2>Friends list</h2>
-            <ul>
-                <%for(i of userList){%>
-                    <li>
-                        <a href="/user/profile/<%=i.id%>">
-                            <%=i.name%>
-                        </a>
-                    </li>
-                    <% }%>
-            </ul>
-        </aside>
-    </div>
+
 </div>
 <!-- <script src="/js/home_post.js"></script> -->
