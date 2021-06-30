@@ -4,11 +4,24 @@ const User = require("../models/user");
 module.exports.createPost = async function (req, res) {
   try {
     let post = await Post.create({
-      content: req.body.content,
       user: req.user._id,
     });
+
     if (post) {
+      Post.uploadedAvatar(req, res, function (err) {
+        if (err) {
+          console.log("Multer Error in creating Post", err);
+        }
+        if (req.body.content) {
+          post.content = req.body.content;
+        }
+        if (req.file) {
+          post.avatar = Post.avatarPath + "/" + req.file.filename;
+        }
+        post.save();
+      });
       let user = await User.findById(req.user._id);
+
       user.user_posts.push(post);
       user.save();
       req.flash("success", "Congrats!Post Published..");
@@ -16,6 +29,7 @@ module.exports.createPost = async function (req, res) {
     }
   } catch (error) {
     req.flash("error", "Error in creating Post");
+    console.log(error);
     return res.redirect("/");
   }
 };

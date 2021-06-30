@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/post.css">
 
-<li id='post-<%=post._id%>'>
-    <p>
+
+<div id="new-post">
     <div>
         <b>
             <%=post.user.name%>
@@ -14,39 +14,45 @@
     <div>
         <%=post.content%>
     </div>
-    <br>
-    <div id="post-action">
-        <% if(locals.user){%>
-            <div>
-                <a href="/">Like
-                </a>
-            </div>
-            <div>
-                <a href="/">Comment
-                </a>
-            </div>
-            <% }%>
-                <br>
-
-                <% if(locals.user && post.user.id==locals.user.id){%>
+    <% if(post.avatar){%>
+        <div>
+            <img src="<%=post.avatar%>" height="400px" width="100%">
+        </div>
+        <% }%>
+            <br>
+            <div id="post-action">
+                <% if(locals.user){%>
                     <div>
-                        <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
-                                Post</button></a>
+                        <a href="/">Like
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/">Comment
+                        </a>
                     </div>
                     <% }%>
-    </div>
-    </p>
-    <%if(locals.user){%>
-        <form action="/comment/create-comment" method="POST">
-            <textarea name='content' cols="30" rows="2" placeholder="Write a Comment..........." required></textarea>
-            <input type="hidden" name="post" value="<%=post._id%>">
-            <button type="submit">Comment</button>
-        </form>
-        <%}%>
-            <ol id="post-comment-<%=post._id%>">
-                <%for(comment of post.comments){%>
-                    <%-include('_comment.ejs')-%>
-                        <% }%>
-            </ol>
-            <br>
-</li>
+                        <br>
+
+                        <% if(locals.user && post.user.id==locals.user.id){%>
+                            <div>
+                                <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
+                                        Post</button></a>
+                            </div>
+                            <% }%>
+            </div>
+
+            <%if(locals.user){%>
+                <form action="/comment/create-comment" method="POST">
+                    <textarea name='content' cols="30" rows="2" placeholder="Write a Comment..........."
+                        required></textarea>
+                    <input type="hidden" name="post" value="<%=post._id%>">
+                    <button type="submit">Comment</button>
+                </form>
+                <%}%>
+                    <ol id="post-comment-<%=post._id%>">
+                        <%for(comment of post.comments){%>
+                            <%-include('_comment.ejs')-%>
+                                <% }%>
+                    </ol>
+                    <br>
+</div>

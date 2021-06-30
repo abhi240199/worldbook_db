@@ -31,8 +31,10 @@
 
     <% if(locals.user && main_user.id==locals.user.id){%>
         <div id="post-blog">
-            <form action="/post/create-post" id="new-post-form" method="POST">
+            <form action="/post/create-post" id="new-post-form" method="POST" enctype='multipart/form-data'>
                 <textarea name='content' cols="50" rows="4" placeholder="Write a Post.........." required></textarea>
+                <br>
+                <input type="file" name="avatar">
                 <button type="submit">Add Post</button>
             </form>
         </div>

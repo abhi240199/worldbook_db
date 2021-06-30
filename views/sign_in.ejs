@@ -1,11 +1,20 @@
-<h1>Log in</h1>
-<form action="/user/create-session" method="POST">
-    <input type="text" name="email" placeholder="Enter Email">
+<link rel="stylesheet" href="/css/sign.css">
 
-    <input type="text" name="password" placeholder="Enter Password">
-    <button type="submit">Log In</button>
-</form>
 
 <br>
-<h2><a href="/user/auth/google">Google Sign In</a></h2>
+<div id="signUp">
+    <div><b>LogIn</b></div>
+
+    <form action="/user/create-session" method="POST">
+        <input type="text" name="email" placeholder="Enter Email">
+        <br>
+        <input type="text" name="password" placeholder=" Password">
+        <br>
+
+        <button type="submit" class="Submit_sign_up">Sign Up</button>
+    </form>
+</div>
+
+
+<h2 id="google-sign"><a href="/user/auth/google">Google Sign In/Sign Up</a></h2>
 <br>
