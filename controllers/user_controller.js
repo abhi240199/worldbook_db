@@ -7,11 +7,16 @@ module.exports.profile = async function (req, res) {
   try {
     const user = await User.findById(req.params.id)
       .sort("-createdAt")
-      .populate("user_posts")
       .populate({
-        path: "comments",
+        path: "user_posts",
         populate: {
           path: "user",
+        },
+        populate: {
+          path: "comments",
+          populate: {
+            path: "user",
+          },
         },
       });
 

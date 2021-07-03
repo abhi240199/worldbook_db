@@ -25,7 +25,7 @@ module.exports.createPost = async function (req, res) {
       user.user_posts.push(post);
       user.save();
       req.flash("success", "Congrats!Post Published..");
-      return res.redirect("/");
+      return res.redirect("back");
     }
   } catch (error) {
     req.flash("error", "Error in creating Post");
@@ -37,6 +37,13 @@ module.exports.deletePost = async function (req, res) {
   try {
     const post = await Post.findById(req.params.id);
     if (post.user == req.user.id) {
+      User.findByIdAndUpdate(
+        post.user,
+        { $pull: { user_posts: req.params.id } },
+        function (err, post) {
+          return res.redirect("back");
+        }
+      );
       post.remove();
 
       await Comment.deleteMany({ post: req.params.id });

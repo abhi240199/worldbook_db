@@ -39,70 +39,80 @@
             </form>
         </div>
         <%}%>
-            <ul>
-                <%for(post of postList){%>
-                    <li id='post-<%=post._id%>'>
-                        <p>
+
+            <%for(post of postList){%>
+                <div id="new-post">
+                    <div>
+
+                        <b>
+                            <%=post.user.name%>
+                        </b>
+
+                    </div>
+                    <div>
+                        1 April
+                    </div>
+                    <br>
+                    <div>
+                        <%=post.content%>
+                    </div>
+                    <% if(post.avatar){%>
                         <div>
-                            <b>
-                                <%=main_user.name%>
-                            </b>
+                            <img src="<%=post.avatar%>" height="400px" width="100%">
                         </div>
-                        <div>
-                            1 April
-                        </div>
-                        <br>
-                        <div>
-                            <%=post.content%>
-                        </div>
-                        <br>
-                        <div id="post-action">
-                            <% if(locals.user){%>
-                                <div>
-                                    <a href="">Like
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="">Comment
-                                    </a>
-                                </div>
-                                <% }%>
+                        <% }%>
+                            <br>
+                            <div id="post-action">
+                                <% if(locals.user){%>
+                                    <div>
+                                        <a href="/">Like
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="/">Comment
+                                        </a>
+                                    </div>
+                                    <% }%>
+                                        <br>
+
+                                        <% if(locals.user && main_user.id==locals.user.id){%>
+                                            <div>
+                                                <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
+                                                        Post</button></a>
+                                            </div>
+                                            <% }%>
+                            </div>
+
+                            <%if(locals.user){%>
+                                <form action="/comment/create-comment" method="POST">
+                                    <textarea name='content' cols="30" rows="2" placeholder="Write a Comment..........."
+                                        required></textarea>
+                                    <input type="hidden" name="post" value="<%=post._id%>">
+                                    <button type="submit">Comment</button>
+                                </form>
+                                <%}%>
+                                    <ol id="post-comment-<%=post._id%>">
+                                        <%for(comment of post.comments){%>
+                                            <li>
+                                                <p>
+                                                    <b>
+                                                        <%=comment.user.name%>
+                                                    </b>
+                                                    <br>
+                                                    <%=comment.content%>
+                                                        <br>
+                                                        <% if(locals.user && comment.user.id==locals.user.id){%>
+                                                            <a href="/comment/delete-comment/<%=comment.id%>"><button
+                                                                    type="submit">Delete
+                                                                    Comment</button></a>
+                                                            <% }%>
+                                                </p>
+
+                                            </li>
+                                            <% }%>
+                                    </ol>
                                     <br>
+                </div>
+                <% }%>
 
-                                    <% if(locals.user && main_user.id==locals.user.id){%>
-                                        <div>
-                                            <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
-                                                    Post</button></a>
-                                        </div>
-                                        <% }%>
-                        </div>
-                        </p>
-                        <%if(locals.user){%>
-                            <form action="/comment/create-comment" method="POST">
-                                <textarea name='content' cols="30" rows="2" placeholder="Write a Comment..........."
-                                    required></textarea>
-                                <input type="hidden" name="post" value="<%=post._id%>">
-                                <button type="submit">Comment</button>
-                            </form>
-                            <%}%>
-                                <ol id="post-comment-<%=post._id%>">
-                                    <%for(comment of post.comments){%>
-                                        <li>
-                                            <p>
-
-                                                <br>
-                                                <% if(locals.user && comment.main_user.id==locals.user.id){%>
-                                                    <a href="/comment/delete-comment/<%=comment.id%>"><button
-                                                            type="submit">Delete
-                                                            Comment</button></a>
-                                                    <% }%>
-                                            </p>
-
-                                        </li>
-                                        <% }%>
-                                </ol>
-                                <br>
-                    </li>
-                    <% }%>
-            </ul>
 </div>

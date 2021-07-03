@@ -1,19 +1,23 @@
 <link rel="stylesheet" href="/css/header.css">
+<div id="worldbook"><a href='/'>Worldbook</a></div>
 <div id='header'>
-    <div>
-        <div>Worldbook</div>
 
-    </div>
     <%if(locals.user){%>
-        <div><a href='/'>Home</a></div>
-        <div><a href='/user/profile/<%=locals.user.id%>'>Profile</a></div>
-        <div><a href='/friend'>Friends</a></div>
+        <div><a href='/'><i class="fas fa-home"></i></a></div>
+
+        <div><a href='/friend'><i class="fas fa-user-friends"></i></a></div>
+        <div><a href='/friend'><i class="fab fa-facebook-messenger"></i></a></div>
+        <div><a href='/friend'><i class="fas fa-gamepad"></i></a></div>
+
 
         <% }%>
             <div>
                 <%if(locals.user){%>
                     <div>
-                        <%=user.name%>
+                        <a href='/user/profile/<%=locals.user.id%>'>
+                            <i class="fas fa-user"></i>
+                            <%=user.name%>
+                        </a>
                     </div>
                     <div><a href='/user/sign-out'>Logout</a></div>
 
