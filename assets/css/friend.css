@@ -1,6 +1,7 @@
 a {
   text-decoration: none;
-  color: black; }
+  color: black;
+}
 
 #dashboard {
   font-size: 10px;
@@ -11,7 +12,8 @@ a {
   width: 50%;
   margin-left: 20%;
   margin-top: 1%;
-  margin-bottom: 1%; }
+  margin-bottom: 1%;
+}
 
 .dashboard {
   display: flex;
@@ -20,21 +22,26 @@ a {
   justify-content: space-around;
   height: 50px;
   width: 70%;
-  margin: 2px; }
+  margin: 2px;
+}
 
 #dashboard:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 .dashboard div button {
-  background-color: #4267b2;
+  background-color: #52eb34;
   border-radius: 8px 8px 8px 8px;
   font-size: 10px;
   height: 25px;
   width: 80px;
-  color: white; }
+  color: white;
+}
 
 @media only screen and (max-width: 600px) {
   #dashboard {
     height: 80px;
     width: 80%;
-    margin-left: 10%; } }
+    margin-left: 10%;
+  }
+}

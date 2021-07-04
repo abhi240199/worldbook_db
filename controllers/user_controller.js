@@ -42,9 +42,9 @@ module.exports.updateProfile = async function (req, res) {
         user.name = req.body.name;
         user.email = req.body.email;
         if (req.file) {
-          if (user.avatar) {
-            fs.unlinkSync(path.join(__dirname, "..", user.avatar));
-          }
+          // if (user.avatar) {
+          //   fs.unlinkSync(path.join(__dirname, "..", user.avatar));
+          // }
           user.avatar = User.avatarPath + "/" + req.file.filename;
         }
         console.log("Req,file:", req.file);

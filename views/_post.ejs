@@ -23,24 +23,15 @@
         <% }%>
             <br>
             <div id="post-action">
-                <% if(locals.user){%>
+
+                <br>
+
+                <% if(locals.user && post.user.id==locals.user.id){%>
                     <div>
-                        <a href="/">Like
-                        </a>
-                    </div>
-                    <div>
-                        <a href="/">Comment
-                        </a>
+                        <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
+                                Post</button></a>
                     </div>
                     <% }%>
-                        <br>
-
-                        <% if(locals.user && post.user.id==locals.user.id){%>
-                            <div>
-                                <a href="/post/delete-post/<%=post.id%>"><button type="submit">Delete
-                                        Post</button></a>
-                            </div>
-                            <% }%>
             </div>
 
             <%if(locals.user){%>
